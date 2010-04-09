@@ -1,0 +1,4 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=3049
+
+注释、反注释的插件，
+比较有特色的是头部注释，尽量做到智能了，会根据不同的用户名更新代码头部的注释，并且更新方式和内容是可以自定义的。
