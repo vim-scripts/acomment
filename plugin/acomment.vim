@@ -2,9 +2,9 @@
 "
 "          File:  acomment.vim
 "          Path:  ~/.vim/plugin
-"        Author:  A-yu
-"      Modifier:  A-yu
-"      Modified:  2009-09-01 09:45:29  
+"        Author:  Alvan
+"      Modifier:  Alvan
+"      Modified:  2014-08-18
 "   Description:  在文档中快速添加注释的vim插件
 "                 可自由添加支持的文件类型、定义注释符号
 "                 仅在linux系统下的Vim中测试
@@ -20,38 +20,38 @@ if exists("g:loaded_acomment")
 endif
 
 " acomment插件版本号
-let g:loaded_acomment = "Version 2.25"
+let g:loaded_acomment = "Version 2.3"
 
 " ***********************************配置*************************************
 " 定义键映射
 " 
 " 切换注释模式，用于普通模式
-nmap <silent> <unique> <leader>cs :call <SID>AComment("Comments")<Cr>
+nnoremap <silent> <leader>cs :call <SID>AComment("Comments")<Cr>
 " 添加头部注释，用于普通模式
-nmap <silent> <unique> <leader>ct :call <SID>AComment("CommentTop")<Cr>
+nnoremap <silent> <leader>ct :call <SID>AComment("CommentTop")<Cr>
 " 添加文件结束注释，用于普通模式
-nmap <silent> <unique> <leader>cb :call <SID>AComment("CommentBottom")<Cr>
+nnoremap <silent> <leader>cb :call <SID>AComment("CommentBottom")<Cr>
 " 添加注释，新增于当前下一行，用于普通、插入模式
-nmap <silent> <unique> <leader>cj :call <SID>AComment("Commentj")<Cr>
-imap <silent> <unique> <leader>cj <Esc>:call <SID>AComment("Commentj")<Cr>a
+nnoremap <silent> <leader>cj :call <SID>AComment("Commentj")<Cr>
+inoremap <silent> <leader>cj <Esc>:call <SID>AComment("Commentj")<Cr>a
 " 添加注释，新增于当前上一行，用于普通、插入模式
-nmap <silent> <unique> <leader>ck :call <SID>AComment("Commentk")<Cr>
-imap <silent> <unique> <leader>ck <Esc>:call <SID>AComment("Commentk")<Cr>a
+nnoremap <silent> <leader>ck :call <SID>AComment("Commentk")<Cr>
+inoremap <silent> <leader>ck <Esc>:call <SID>AComment("Commentk")<Cr>a
 " 添加注释，位于当前行末，用于普通、插入模式
-nmap <silent> <unique> <leader>cl :call <SID>AComment("Commentl")<Cr>
-imap <silent> <unique> <leader>cl <Esc>:call <SID>AComment("Commentl")<Cr>a
+nnoremap <silent> <leader>cl :call <SID>AComment("Commentl")<Cr>
+inoremap <silent> <leader>cl <Esc>:call <SID>AComment("Commentl")<Cr>a
 " 注释，用于普通、插入、可视、块模式
-nmap <silent> <unique> <leader>ch :call <SID>AComment("Comment")<Cr>
-imap <silent> <unique> <leader>ch <Esc>:call <SID>AComment("Comment")<Cr>a
-vmap <silent> <unique> <leader>ch <Esc>:'<,'>call <SID>AComment("CommentRange")<Cr>
+nnoremap <silent> <leader>ch :call <SID>AComment("Comment")<Cr>
+inoremap <silent> <leader>ch <Esc>:call <SID>AComment("Comment")<Cr>a
+vnoremap <silent> <leader>ch <Esc>:'<,'>call <SID>AComment("CommentRange")<Cr>
 " 删除注释，可用于普通、插入、可视、块模式
-nmap <silent> <unique> <leader>cc :call <SID>AComment("UnComment")<Cr>
-imap <silent> <unique> <leader>cc <Esc>:call <SID>AComment("UnComment")<Cr>a
-vmap <silent> <unique> <leader>cc <Esc>:'<,'>call <SID>AComment("UnCommentRange")<Cr>
+nnoremap <silent> <leader>cc :call <SID>AComment("UnComment")<Cr>
+inoremap <silent> <leader>cc <Esc>:call <SID>AComment("UnComment")<Cr>a
+vnoremap <silent> <leader>cc <Esc>:'<,'>call <SID>AComment("UnCommentRange")<Cr>
 " 切换 添加（删除）注释，可用于普通、插入、可视、块模式
-nmap <silent> <unique> <leader>x :call <SID>AComment("Commentx")<Cr>
-imap <silent> <unique> <leader>x <Esc>:call <SID>AComment("Commentx")<Cr>a
-vmap <silent> <unique> <leader>x <Esc>:'<,'>call <SID>AComment("CommentxRange")<Cr>
+nnoremap <silent> <leader>x :call <SID>AComment("Commentx")<Cr>
+inoremap <silent> <leader>x <Esc>:call <SID>AComment("Commentx")<Cr>a
+vnoremap <silent> <leader>x <Esc>:'<,'>call <SID>AComment("CommentxRange")<Cr>
 
 " 全局变量设置
 "
@@ -86,13 +86,13 @@ let s:aDict = {}
 " Example:
 " function g:acommentSet()
 "     let g:acomment = {}
-"     let g:acomment["user"] = 'A-yu'
+"     let g:acomment["user"] = 'Alvan'
 "     let g:acomment['cTop'] = [
 "                 \ [["          File:  ",'Y'],[expand("%"),'N']]
 "                 \,[["          Path:  ",'Y'],[expand("%:p:h"),'REL']]
 "                 \,[["        Author:  ",'Y'],[g:acomment["user"],'T']]
 "                 \,[["      Modifier:  ",'Y'],[g:acomment["user"],'SIGN']]
-"                 \,[["      Modified:  ",'Y'],[strftime("%Y-%m-%d %H:%M:%S")."  ",'N']]
+"                 \,[["      Modified:  ",'Y'],[strftime("%Y-%m-%d %H:%M:%S"),'N']]
 "                 \,[["   Description:  ",'N'],["",'Y']]
 "                 \]
 "     let g:acomment["reUrl"] = [
@@ -140,7 +140,9 @@ let s:aDict['cType'][9] = {'cBegin':"<?php",'cBody':"// "}
 let s:aDict['fType'] = {
             \'vim':[0],'vimrc':[0],
             \'php':[1,4,9],
-            \'cpp':[2],'java':[2],'js':[2],
+            \'phtml':[4,1,9],
+            \'python':[5],
+            \'cpp':[2],'java':[2],'javascript':[2],'js':[2],'go':[2],
             \'css':[3],'c':[3],'h':[3],'pc':[3],
             \'htm':[4,2],'html':[4,2],'xml':[4],'xhtml':[4,2],'tpl':[4,2],
             \'ini':[5,6],'sh':[5],'conkyrc':[5],'list':[5],
@@ -176,7 +178,7 @@ function s:CTop()
                 \,[["          Path:  ",'Y'],[expand("%:p:h"),'REL']]
                 \,[["        Author:  ",'Y'],[s:aDict['user'],'T']]
                 \,[["      Modifier:  ",'Y'],[s:aDict['user'],'SIGN']]
-                \,[["      Modified:  ",'Y'],[strftime("%Y-%m-%d %H:%M:%S")."  ",'N']]
+                \,[["      Modified:  ",'Y'],[strftime("%Y-%m-%d"),'N']]
                 \,[["   Description:  ",'N'],["",'Y']]
                 \]
 
@@ -1060,12 +1062,9 @@ endf
 " ==============================================================================
 " 初始化插件
 "
-autocmd BufEnter,BufRead * :call s:InitA()
-autocmd Filetype * :call s:InitA()
-
 function s:InitA()
     " 设置初始化状态为F(alse)
-    let s:initA = "F"
+    let b:initA = "F"
 
     " 设置全局变量
     if !exists("g:acommentAutoIndent")
@@ -1127,7 +1126,7 @@ function s:InitA()
     endif
 
     " 初始化成功，设置状态为T(rue)
-    let s:initA = "T"
+    let b:initA = "T"
 endf
 
 " 全局接口函数
@@ -1137,7 +1136,7 @@ endf
 "
 function s:AComment(funcName)
     " 检查插件是否已初始化
-    if !exists("s:initA")
+    if !exists("b:initA")
         call s:InitA()
         if s:Err("hasErr")
             echo "（".strftime("%H:%M:%S")."）".s:Err("ERR").s:Err()
@@ -1161,7 +1160,7 @@ function s:AComment(funcName)
         endif
     endif
 
-    if s:initA != "T"
+    if b:initA != "T"
         if isRange ==? "T" && isLast !=? "T"
             return
         endif
@@ -1199,9 +1198,7 @@ endf
 " 获取文件类型，返回其小写的后缀名
 function s:FType()
     " 获取文件名后缀
-    let fType = (strridx(expand("%"),".") == -1) ?
-                \"" :
-                \strpart(expand("%"),(strridx(expand("%"),".") + 1))
+    let fType = getwinvar(winnr(), '&filetype')
     if fType == ""
         call s:Err(2)
         return
@@ -1494,14 +1491,6 @@ function s:StrToEreg(cStr)
     let cStr = substitute(cStr,'\(\"\|\*\)','\\\1',"g")
     return cStr
 endf
-
-" ==============================================================================
-" vim相应配置
-" GVIM下编辑该插件脚本时不折行，显示水平滚动条
-if has("gui_running") && bufname("%") ==? "acomment.vim"
-    set nowrap
-    set guioptions+=b
-endif
 
 " }}}
 " vim:ft=vim:ff=unix:tabstop=4:shiftwidth=4:softtabstop=4:expandtab
